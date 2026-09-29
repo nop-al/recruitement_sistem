@@ -353,100 +353,96 @@
 
 @if(in_array($currentRole, ['admin', 'hr']))
 <!-- Modal Upload Massal Status Pelamar -->
-<div id="uploadMassModal" class="fixed inset-0 z-50 overflow-y-auto hidden" aria-labelledby="modal-title" role="dialog" aria-modal="true">
-    <div class="flex items-center justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
-        <!-- Backdrop -->
-        <div class="fixed inset-0 bg-slate-900/60 backdrop-blur-xs transition-opacity" onclick="closeUploadMassModal()"></div>
+<div id="uploadMassModal" class="fixed inset-0 z-50 bg-slate-950/60 backdrop-blur-sm hidden items-center justify-center p-4 overflow-y-auto" aria-labelledby="modal-title" role="dialog" aria-modal="true">
+    <!-- Click backdrop outside to close -->
+    <div class="fixed inset-0 -z-10" onclick="closeUploadMassModal()"></div>
 
-        <span class="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span>
-
-        <!-- Modal Dialog -->
-        <div class="inline-block align-bottom bg-white rounded-3xl text-left overflow-hidden shadow-2xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full border border-slate-100">
-            <form action="{{ route($uploadMassRoute) }}" method="POST" enctype="multipart/form-data">
-                @csrf
-                <div class="p-6 sm:p-7">
-                    <div class="flex items-center justify-between pb-4 border-b border-slate-100">
-                        <div class="flex items-center gap-3">
-                            <div class="w-10 h-10 rounded-2xl bg-blue-50 text-blue-600 flex items-center justify-center font-bold">
-                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"></path>
-                                </svg>
-                            </div>
-                            <div>
-                                <h3 class="text-base font-black text-slate-900" id="modal-title">Upload Massal Status Pelamar</h3>
-                                <p class="text-xs text-slate-500">Perbarui tahapan status pelamar secara massal dengan Excel</p>
-                            </div>
-                        </div>
-                        <button type="button" onclick="closeUploadMassModal()" class="w-8 h-8 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-400 hover:text-slate-600 flex items-center justify-center transition">
-                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+    <!-- Modal Dialog -->
+    <div class="relative z-10 bg-white rounded-3xl max-w-lg w-full text-left overflow-hidden shadow-2xl border border-slate-100 my-auto">
+        <form action="{{ route($uploadMassRoute) }}" method="POST" enctype="multipart/form-data">
+            @csrf
+            <div class="p-6 sm:p-7">
+                <div class="flex items-center justify-between pb-4 border-b border-slate-100">
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 rounded-2xl bg-blue-50 text-blue-600 flex items-center justify-center font-bold">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"></path>
                             </svg>
-                        </button>
-                    </div>
-
-                    <div class="mt-5 space-y-4">
-                        <!-- Petunjuk dan Download Template -->
-                        <div class="p-4 rounded-2xl bg-slate-50 border border-slate-200/80">
-                            <div class="flex items-start justify-between gap-3">
-                                <div>
-                                    <div class="text-xs font-bold text-slate-800">Petunjuk Format Berkas:</div>
-                                    <p class="text-[11px] text-slate-500 mt-1 leading-relaxed">
-                                        Gunakan berkas Excel (.xlsx) dengan kolom: <code class="px-1 py-0.5 bg-white border border-slate-200 rounded text-slate-800 font-mono font-bold">no</code>, <code class="px-1 py-0.5 bg-white border border-slate-200 rounded text-slate-800 font-mono font-bold">email</code>, dan <code class="px-1 py-0.5 bg-white border border-slate-200 rounded text-slate-800 font-mono font-bold">tahapan</code>.
-                                    </p>
-                                </div>
-                                <a href="{{ route($templateRoute) }}"
-                                   class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold shrink-0 shadow-xs transition"
-                                   title="Unduh berkas template upload_mass_status.xlsx">
-                                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path>
-                                    </svg>
-                                    <span>Unduh Template</span>
-                                </a>
-                            </div>
-
-                            <div class="mt-3 pt-3 border-t border-slate-200/60">
-                                <div class="text-[11px] font-bold text-slate-700 mb-1.5">Kode Angka / Nama Tahapan:</div>
-                                <div class="grid grid-cols-2 gap-1.5 text-[11px] text-slate-600">
-                                    <div><span class="font-bold text-blue-600">1</span> = Screening</div>
-                                    <div><span class="font-bold text-blue-600">2</span> = Assessment</div>
-                                    <div><span class="font-bold text-blue-600">3</span> = Interview</div>
-                                    <div><span class="font-bold text-blue-600">4</span> = Offering</div>
-                                    <div><span class="font-bold text-blue-600">5</span> = Onboarding</div>
-                                    <div><span class="font-bold text-emerald-600">6</span> = Hired (Lolos)</div>
-                                    <div><span class="font-bold text-rose-600">7</span> = Rejected (Gagal)</div>
-                                </div>
-                            </div>
                         </div>
-
-                        <!-- Input File Upload -->
                         <div>
-                            <label class="block text-xs font-bold text-slate-700 mb-2">
-                                Pilih Berkas Excel (.xlsx) <span class="text-rose-500">*</span>
-                            </label>
-                            <input type="file"
-                                   name="file_excel"
-                                   id="file_excel"
-                                   accept=".xlsx,.xls"
-                                   required
-                                   class="block w-full text-xs text-slate-500 file:mr-3 file:py-2.5 file:px-4 file:rounded-xl file:border-0 file:text-xs file:font-bold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100 border border-slate-200 rounded-2xl p-2 cursor-pointer focus:outline-hidden focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition">
-                            <p class="text-[11px] text-slate-400 mt-1.5">Maksimal ukuran file: 10 MB.</p>
+                            <h3 class="text-base font-black text-slate-900" id="modal-title">Upload Massal Status Pelamar</h3>
+                            <p class="text-xs text-slate-500">Perbarui tahapan status pelamar secara massal dengan Excel</p>
                         </div>
                     </div>
+                    <button type="button" onclick="closeUploadMassModal()" class="w-8 h-8 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-400 hover:text-slate-600 flex items-center justify-center transition">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                        </svg>
+                    </button>
                 </div>
 
-                <div class="px-6 py-4 bg-slate-50 border-t border-slate-100 flex items-center justify-end gap-2.5">
-                    <button type="button" onclick="closeUploadMassModal()" class="px-4 py-2 rounded-xl border border-slate-200 bg-white hover:bg-slate-100 text-slate-700 text-xs font-bold transition">
-                        Batal
-                    </button>
-                    <button type="submit" class="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold shadow-md shadow-blue-600/20 transition">
-                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
-                        </svg>
-                        <span>Proses & Perbarui Status</span>
-                    </button>
+                <div class="mt-5 space-y-4">
+                    <!-- Petunjuk dan Download Template -->
+                    <div class="p-4 rounded-2xl bg-slate-50 border border-slate-200/80">
+                        <div class="flex items-start justify-between gap-3">
+                            <div>
+                                <div class="text-xs font-bold text-slate-800">Petunjuk Format Berkas:</div>
+                                <p class="text-[11px] text-slate-500 mt-1 leading-relaxed">
+                                    Gunakan berkas Excel (.xlsx) dengan kolom: <code class="px-1 py-0.5 bg-white border border-slate-200 rounded text-slate-800 font-mono font-bold">no</code>, <code class="px-1 py-0.5 bg-white border border-slate-200 rounded text-slate-800 font-mono font-bold">email</code>, dan <code class="px-1 py-0.5 bg-white border border-slate-200 rounded text-slate-800 font-mono font-bold">tahapan</code>.
+                                </p>
+                            </div>
+                            <a href="{{ route($templateRoute) }}"
+                               class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold shrink-0 shadow-xs transition"
+                               title="Unduh berkas template upload_mass_status.xlsx">
+                                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path>
+                                </svg>
+                                <span>Unduh Template</span>
+                            </a>
+                        </div>
+
+                        <div class="mt-3 pt-3 border-t border-slate-200/60">
+                            <div class="text-[11px] font-bold text-slate-700 mb-1.5">Kode Angka / Nama Tahapan:</div>
+                            <div class="grid grid-cols-2 gap-1.5 text-[11px] text-slate-600">
+                                <div><span class="font-bold text-blue-600">1</span> = Screening</div>
+                                <div><span class="font-bold text-blue-600">2</span> = Assessment</div>
+                                <div><span class="font-bold text-blue-600">3</span> = Interview</div>
+                                <div><span class="font-bold text-blue-600">4</span> = Offering</div>
+                                <div><span class="font-bold text-blue-600">5</span> = Onboarding</div>
+                                <div><span class="font-bold text-emerald-600">6</span> = Hired (Lolos)</div>
+                                <div><span class="font-bold text-rose-600">7</span> = Rejected (Gagal)</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Input File Upload -->
+                    <div>
+                        <label class="block text-xs font-bold text-slate-700 mb-2">
+                            Pilih Berkas Excel (.xlsx) <span class="text-rose-500">*</span>
+                        </label>
+                        <input type="file"
+                               name="file_excel"
+                               id="file_excel"
+                               accept=".xlsx,.xls"
+                               required
+                               class="block w-full text-xs text-slate-500 file:mr-3 file:py-2.5 file:px-4 file:rounded-xl file:border-0 file:text-xs file:font-bold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100 border border-slate-200 rounded-2xl p-2 cursor-pointer focus:outline-hidden focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition">
+                        <p class="text-[11px] text-slate-400 mt-1.5">Maksimal ukuran file: 10 MB.</p>
+                    </div>
                 </div>
-            </form>
-        </div>
+            </div>
+
+            <div class="px-6 py-4 bg-slate-50 border-t border-slate-100 flex items-center justify-end gap-2.5">
+                <button type="button" onclick="closeUploadMassModal()" class="px-4 py-2 rounded-xl border border-slate-200 bg-white hover:bg-slate-100 text-slate-700 text-xs font-bold transition">
+                    Batal
+                </button>
+                <button type="submit" class="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold shadow-md shadow-blue-600/20 transition">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                    </svg>
+                    <span>Proses & Perbarui Status</span>
+                </button>
+            </div>
+        </form>
     </div>
 </div>
 
@@ -455,6 +451,7 @@
         const modal = document.getElementById('uploadMassModal');
         if (modal) {
             modal.classList.remove('hidden');
+            modal.classList.add('flex');
         }
     }
 
@@ -462,6 +459,7 @@
         const modal = document.getElementById('uploadMassModal');
         if (modal) {
             modal.classList.add('hidden');
+            modal.classList.remove('flex');
         }
     }
 
