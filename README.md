@@ -29,48 +29,53 @@ Aplikasi web modern berbasis Laravel untuk digitalisasi dan otomatisasi seluruh 
 ## Fitur Utama
 
 ### 1. Portal Publik & Karir
+
 - **Katalog Lowongan Pekerjaan**: Menampilkan daftar lowongan aktif lengkap dengan rincian divisi, lokasi penempatan, rentang gaji, kualifikasi, dan batas akhir pendaftaran.
 - **Cek Status Cepat via NIK**: Fitur praktis bagi pelamar untuk melacak status seleksi hanya dengan memasukkan Nomor Induk Kependudukan (NIK) tanpa perlu masuk ke akun. Dilengkapi pembatasan frekuensi akses (rate limiting).
 - **Enkripsi ID Lowongan**: URL publik lowongan menggunakan slug terenkripsi untuk mencegah manipulasi ID (anti-IDOR).
 
 ### 2. Portal Kandidat / Pelamar
+
 - **CV & Portofolio Digital**:
-  - Manajemen riwayat pendidikan formal dan non-formal.
-  - Riwayat pengalaman kerja profesional dan pencapaian.
-  - Daftar keterampilan (skills) beserta tingkat kemahiran.
-  - Unggah berkas resume / CV (PDF).
+    - Manajemen riwayat pendidikan formal dan non-formal.
+    - Riwayat pengalaman kerja profesional dan pencapaian.
+    - Daftar keterampilan (skills) beserta tingkat kemahiran.
+    - Unggah berkas resume / CV (PDF).
 - **Proses Lamaran Cepat**: Melamar posisi pekerjaan hanya dengan 1 klik menggunakan profil data yang sudah terisi.
 - **Computer-Based Test (CBT) Online**:
-  - Pengerjaan soal tes asesmen daring dengan batasan durasi otomatis.
-  - Navigasi nomor soal fleksibel dan konfirmasi pengiriman jawaban.
-  - Perhitungan skor otomatis setelah tes selesai dikerjakan.
+    - Pengerjaan soal tes asesmen daring dengan batasan durasi otomatis.
+    - Navigasi nomor soal fleksibel dan konfirmasi pengiriman jawaban.
+    - Perhitungan skor otomatis setelah tes selesai dikerjakan.
 - **Manajemen Offering Letter**:
-  - Notifikasi dan tinjauan surat penawaran kerja resmi.
-  - Respon langsung (Terima / Tolak penawaran) dengan alasan opsional.
-  - Cetak dokumen surat penawaran kerja ke format PDF / kertas.
+    - Notifikasi dan tinjauan surat penawaran kerja resmi.
+    - Respon langsung (Terima / Tolak penawaran) dengan alasan opsional.
+    - Cetak dokumen surat penawaran kerja ke format PDF / kertas.
 - **Pemberkasan Onboarding Digital**:
-  - Unggah dokumen pra-kerja: KTP, Ijazah, Transkrip Nilai, NPWP, BPJS, Kartu Keluarga, dan Buku Tabungan.
-  - Pemantauan status verifikasi berkas oleh tim HR.
+    - Unggah dokumen pra-kerja: KTP, Ijazah, Transkrip Nilai, NPWP, BPJS, Kartu Keluarga, dan Buku Tabungan.
+    - Pemantauan status verifikasi berkas oleh tim HR.
 
 ### 3. Portal Human Resources (HR)
+
 - **Dashboard Analisis**: Metrik total pelamar, kandidat lolos per tahapan, wawancara mendatang, dan status onboarding.
 - **Manajemen Lowongan**: Membuat, memperbarui status kuota, dan menutup lowongan pekerjaan.
 - **Screening & Pipeline Pelamar**:
-  - Pengelompokan status pelamar: Administrasi, Tes Online, Wawancara, Offering, Diterima, atau Ditolak.
-  - **Pembaruan Status Massal via Excel**: Unduh template Excel, ubah status banyak pelamar sekaligus, dan unggah kembali untuk pembaruan instan.
-  - **Ekspor Data ke Excel**: Mengunduh seluruh rekapitulasi data kandidat dan skor seleksi.
+    - Pengelompokan status pelamar: Administrasi, Tes Online, Wawancara, Offering, Diterima, atau Ditolak.
+    - **Pembaruan Status Massal via Excel**: Unduh template Excel, ubah status banyak pelamar sekaligus, dan unggah kembali untuk pembaruan instan.
+    - **Ekspor Data ke Excel**: Mengunduh seluruh rekapitulasi data kandidat dan skor seleksi.
 - **Pengaturan Tes Asesmen**:
-  - Pembuatan modul tes dan bank soal (pilihan ganda).
-  - Penentuan bobot penilaian, durasi ujian, dan nilai ambang batas (passing grade).
+    - Pembuatan modul tes dan bank soal (pilihan ganda).
+    - Penentuan bobot penilaian, durasi ujian, dan nilai ambang batas (passing grade).
 - **Penjadwalan Wawancara**: Penjadwalan sesi wawancara online/offline, penunjukan user interviewer, serta tautan video conference.
 - **Penerbitan Surat Offering**: Pembuatan draf penawaran kompensasi, tunjangan, dan tanggal mulai bergabung.
 - **Verifikasi Dokumen Onboarding**: Pemeriksaan keabsahan dokumen berkas yang dikirimkan kandidat baru.
 
 ### 4. Portal Interviewer / Tim Penilai
+
 - **Jadwal Wawancara Khusus**: Melihat daftar pelamar yang ditugaskan untuk dinilai oleh pewawancara terkait.
 - **Lembar Penilaian Terstruktur**: Pengisian formulir evaluasi kompetensi teknis, komunikasi, kepemimpinan, dan rekomendasi kelulusan.
 
 ### 5. Portal Super Administrator
+
 - **Manajemen Pengguna & Otoritas**: Kontrol akun seluruh staf HR, interviewer, dan pelamar.
 - **Fitur Blacklist**: Menonaktifkan dan memblokir akses pengguna tertentu yang melanggar ketentuan.
 - **Pengaturan Identitas Perusahaan**: Konfigurasi nama instansi, logo, deskripsi, dan struktur departemen.
@@ -112,12 +117,12 @@ Aplikasi web modern berbasis Laravel untuk digitalisasi dan otomatisasi seluruh 
 
 Sistem menggunakan kontrol akses berbasis peran (Role-Based Access Control) melalui pustaka `spatie/laravel-permission`:
 
-| Role | Hak Akses Utama |
-|---|---|
-| **admin** | Akses penuh sistem, manajemen akun pengguna, blacklist, pengaturan instansi, backup database, dan audit log. |
-| **hr** | Pengelolaan lowongan, screening pelamar, upload massal Excel, bank soal CBT, jadwal wawancara, surat offering, dan onboarding. |
-| **interviewer** | Melihat jadwal wawancara yang ditugaskan, meninjau profil kandidat, dan mengisi lembar evaluasi penilaian. |
-| **kandidat** | Mencari lowongan, melamar, mengisi CV digital, mengikuti tes CBT, merespon offering letter, dan mengunggah dokumen onboarding. |
+| Role            | Hak Akses Utama                                                                                                                |
+| --------------- | ------------------------------------------------------------------------------------------------------------------------------ |
+| **admin**       | Akses penuh sistem, manajemen akun pengguna, blacklist, pengaturan instansi, backup database, dan audit log.                   |
+| **hr**          | Pengelolaan lowongan, screening pelamar, upload massal Excel, bank soal CBT, jadwal wawancara, surat offering, dan onboarding. |
+| **interviewer** | Melihat jadwal wawancara yang ditugaskan, meninjau profil kandidat, dan mengisi lembar evaluasi penilaian.                     |
+| **kandidat**    | Mencari lowongan, melamar, mengisi CV digital, mengikuti tes CBT, merespon offering letter, dan mengunggah dokumen onboarding. |
 
 ---
 
@@ -149,23 +154,28 @@ Sistem menggunakan kontrol akses berbasis peran (Role-Based Access Control) mela
 Ikuti langkah-langkah di bawah untuk menyiapkan dan menjalankan proyek di lingkungan lokal:
 
 ### 1. Masuk ke Direktori Proyek
+
 ```bash
 cd c:/laragon/www/sistem-recruitment
 ```
 
 ### 2. Pasang Dependensi Backend (Composer)
+
 ```bash
 composer install
 ```
 
 ### 3. Konfigurasi Lingkungan (`.env`)
+
 Salin file konfigurasi contoh dan buat kunci enkripsi aplikasi:
+
 ```bash
 cp .env.example .env
 php artisan key:generate
 ```
 
 Sesuaikan konfigurasi koneksi database di file `.env`:
+
 ```env
 DB_CONNECTION=mysql
 DB_HOST=127.0.0.1
@@ -176,28 +186,36 @@ DB_PASSWORD=
 ```
 
 ### 4. Jalankan Migrasi & Data Awal (Seeding)
+
 Perintah ini akan membuat seluruh tabel, struktur perizinan (roles & permissions), akun uji coba, serta data contoh lowongan:
+
 ```bash
 php artisan migrate:fresh --seed
 ```
 
 ### 5. Buat Symbolic Link Direktori Storage
+
 Langkah ini penting agar berkas logo, resume, dan dokumen pendukung dapat diakses sistem:
+
 ```bash
 php artisan storage:link
 ```
 
 ### 6. Pasang Dependensi Frontend & Kompilasi Aset
+
 ```bash
 npm install
 npm run build
 ```
-*(Untuk mode pengembangan aktif dengan auto-reload, jalankan `npm run dev`)*
+
+_(Untuk mode pengembangan aktif dengan auto-reload, jalankan `npm run dev`)_
 
 ### 7. Jalankan Server Lokal
+
 ```bash
 php artisan serve
 ```
+
 Akses aplikasi melalui browser di tautan: `http://localhost:8000` atau melalui URL Virtual Host Laragon Anda (misal `http://sistem-recruitment.test`).
 
 ---
@@ -206,12 +224,12 @@ Akses aplikasi melalui browser di tautan: `http://localhost:8000` atau melalui U
 
 Seluruh akun di bawah ini telah disiapkan secara otomatis oleh `DatabaseSeeder`:
 
-| Role | Nama Akun | Email Login | Password Default |
-|---|---|---|---|
-| **Super Admin** | Nauval Amarullah | `admin@recruitment.test` | `password` |
-| **HR Officer** | Sarah Wijaya, M.Psi | `hr@recruitment.test` | `password` |
-| **Interviewer** | Bambang Sudarmono | `interviewer@recruitment.test` | `password` |
-| **Kandidat / Pelamar** | Ahmad Fauzi | `kandidat@recruitment.test` | `password` |
+| Role                   | Nama Akun | Email Login                   | Password Default |
+| ---------------------- | --------- | ----------------------------- | ---------------- |
+| **Super Admin**        | Nopal     | `Nopal@gmail.com`             | `password`       |
+| **HR Officer**         | HR        | `hr@recruitment.com`          | `password`       |
+| **Interviewer**        | Interview | `interviewer@recruitment.com` | `password`       |
+| **Kandidat / Pelamar** | John Doe  | `kandidat@recruitment.com`    | `password`       |
 
 ---
 
