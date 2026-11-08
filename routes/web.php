@@ -211,6 +211,7 @@ Route::middleware(['auth', 'role:kandidat'])->prefix('kadidat')->name('kadidat.'
     Route::post('/profile/skill', [CandidateProfileController::class, 'storeSkill'])->name('profile.skill.store');
     Route::delete('/profile/skill/{skill}', [CandidateProfileController::class, 'destroySkill'])->name('profile.skill.destroy');
 
+    
     // Candidate Online Assessments
     Route::get('/assessments', [AssessmentController::class, 'candidateIndex'])->name('assessments.index');
     Route::get('/assessments/{assessment}/take', [AssessmentController::class, 'candidateTake'])->name('assessments.take');
